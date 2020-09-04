@@ -1,0 +1,4 @@
+Flask==1.1.2
+ipython==7.17.0
+parsr==0.3.5
+squerly==0.2.2

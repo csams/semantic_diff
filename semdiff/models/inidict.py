@@ -2,7 +2,7 @@
 Interpret an ini style file into nested dictionaries.
 """
 
-from iniparser import make_parser
+from semdiff.grammars.ini import make_parser
 
 
 def doc_meaning(pairs):

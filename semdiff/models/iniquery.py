@@ -2,7 +2,7 @@
 Interpret an ini style file into a queryable data structure.
 """
 from squerly import Dict, Queryable
-from iniparser import make_parser
+from semdiff.grammars.ini import make_parser
 
 
 def doc_meaning(pairs):

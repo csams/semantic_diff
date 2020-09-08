@@ -1,5 +1,6 @@
 """
-Make interpreters of ini style files.
+Make interpreters of ini style files. Doesn't support hanging indent
+continuations or comments.
 """
 from parsr import EOF, EOL, WS, Char, Many, Number, PosMarker, StringUntil, Wrapper
 

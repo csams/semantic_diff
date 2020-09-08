@@ -1,20 +1,22 @@
 # Semantic Diff
-This project includes a "semantic diff" service for simple ini style files. It
-ignores whitespace and ordering of key/value pairs, including sections. Comments
-and hanging indents are not supported just to keep it simple.
+This project includes a diff service for simple ini and httpd style
+configuration. Instead of generating character or line based diffs, it compares
+two configs by parsing them and comparing the trees. This eliminates noise like
+whitespace and comments and also provides more meaningful differences. It falls
+back to a line based unified diff if parsing fails.
 
-It's also an example of how to define a single parser that can be configured to
-make different representations for different use cases.
+The project is also an example of how grammars can be generically defined and
+configured for different use cases.
 
-`iniparser.make_parser` accepts functions that convert recognized parts into a
-nest of dictionaries, a queryable object, or a tree that can be compared with
-other trees to generate diffs based on structure instead of syntax.
+The grammars in `semdiff.grammars` accept functions that convert recognized
+parts into a nest of dictionaries, a queryable object, or a tree that can be
+compared with other trees. See `semdiff.models` and `semdiff.differs`.
 
 ## Install
 Create and activate a python 3 virtual env and then `pip install -r requirements.txt`.
 
 ## Run
-`./service.py`
+`python -m wsgi`
 
 ## Test
-`curl -F 'left_file=@data/left.ini' -F 'right_file=@data/right.ini' http://127.0.0.1:5000/`
+`curl -F "kind=ini" -F 'left_file=@data/left.ini' -F 'right_file=@data/right.ini' http://127.0.0.1:5000/`

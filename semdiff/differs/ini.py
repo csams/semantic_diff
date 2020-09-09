@@ -2,7 +2,7 @@
 Interpret an ini style file into a tree that can be diffed.
 """
 from semdiff.grammars.ini import make_parser
-from semdiff.diff_ast import Name, Node, Value, unique_name_diff
+from semdiff.diff_ast import Name, Node, Value, structure_diff
 from semdiff.differs import differ
 
 
@@ -24,4 +24,4 @@ _parse = make_parser(_doc_meaning, _section_meaning)
 
 @differ("ini")
 def diff(l, r):
-    return unique_name_diff(_parse(l), _parse(r))
+    return structure_diff(_parse(l), _parse(r))

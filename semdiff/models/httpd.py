@@ -5,10 +5,10 @@ from parsr.query import Directive, Entry, Section
 from semdiff.grammars.httpd import make_parser
 
 
-def section_meaning(tag, children):
+def section_meaning(tag, children, endtag):
     name, attrs = tag
     attrs = [a.value for a in attrs]
-    return Section(name=name.value, attrs=attrs, children=children, lineno=name.lineno)
+    return Section(name=name.value, attrs=attrs, children=children.value, lineno=name.lineno)
 
 
 def directive_meaning(name, attrs):

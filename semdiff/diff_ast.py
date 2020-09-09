@@ -63,10 +63,10 @@ class Diff:
         self.right = right
 
 
-def unique_name_diff(left, right):
+def structure_diff(left, right, dup_names=False):
     """
-    Diff structures that have unique names at each level and for which order
-    doesn't matter. i.e. simple key/value pairs, dicts from json, etc.
+    Diff structures that may or may not have unique names at each level.
+    Order doesn't matter.
     """
     if not (left and right):
         return [Diff(left, right)]
@@ -78,8 +78,12 @@ def unique_name_diff(left, right):
 
     res.extend(Diff(l, r) for (l, r) in zip_longest(left.attrs, right.attrs) if l != r)
 
-    left_names = {l.name: l for l in left.children}
-    right_names = {r.name: r for r in right.children}
+    if dup_names:
+        left_names = {(l.name, l.attrs): l for l in left.children}
+        right_names = {(r.name, r.attrs): r for r in right.children}
+    else:
+        left_names = {l.name: l for l in left.children}
+        right_names = {r.name: r for r in right.children}
 
     for k, v in left_names.items():
         if k not in right_names:
@@ -90,7 +94,7 @@ def unique_name_diff(left, right):
             res.append(Diff(None, v.name))
 
     for k in left_names.keys() & right_names.keys():
-        res.extend(unique_name_diff(left_names[k], right_names[k]))
+        res.extend(structure_diff(left_names[k], right_names[k], dup_names=dup_names))
 
     return res
 

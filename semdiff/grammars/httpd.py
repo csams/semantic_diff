@@ -28,11 +28,11 @@ def make_parser(section_meaning, directive_meaning):
     Attrs = Many(Attr)
 
     StartTag = (WS + LT) >> (StartName + Attrs) << (GT + WS)
-    EndTag = (WS + LT + FS) >> EndName << (GT + WS)
+    EndTag = (WS + LT + FS) >> PosMarker(EndName) << (GT + WS)
 
     Directive = WS >> (Lift(directive_meaning) * PosMarker(Name) * Attrs) << WS  # <--- interpret the directive
     Stanza = Directive | Section | Comment | Many(WSChar | EOL, lower=1).map(lambda x: None)
-    Section <= (Lift(section_meaning) * StartTag * Many(Stanza).map(skip_none)) << EndTag  # <--- interpret the section
+    Section <= Lift(section_meaning) * StartTag * PosMarker(Many(Stanza).map(skip_none)) * EndTag  # <--- interpret the section
 
     parser = Many(Stanza).map(skip_none) << WS << EOF
 

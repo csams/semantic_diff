@@ -109,9 +109,6 @@ class NodeEncoder(json.JSONEncoder):
             }
         elif isinstance(obj, Prim):
             return {
-                "lineno": obj.mark.lineno,
-                "col": obj.mark.col,
-                "value": obj.mark.value,
                 "start": obj.mark.start,
                 "end": obj.mark.end,
             }

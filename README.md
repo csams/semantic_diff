@@ -1,4 +1,4 @@
-# Semantic Diff
+# Structural Diff
 This project includes a diff service for simple ini and httpd style
 configuration. Instead of generating character or line based diffs, it compares
 two configs by parsing them and comparing the trees. This eliminates noise like
@@ -28,22 +28,16 @@ Create and activate a python 3 virtual env and then `pip install -r requirements
   "result": [
     {
       "left": {
-        "col": 1,
         "end": 37,
-        "lineno": 1,
         "start": 0,
-        "value": "heading1"
       },
       "right": null
     },
     {
       "left": null,
       "right": {
-        "col": 1,
         "end": 59,
-        "lineno": 4,
         "start": 20,
-        "value": "heading3"
       }
     }
   ],
@@ -59,22 +53,16 @@ Create and activate a python 3 virtual env and then `pip install -r requirements
   "result": [
     {
       "left": {
-        "col": 2,
         "end": 4575,
-        "lineno": 127,
         "start": 4470,
-        "value": "Directory"
       },
       "right": null
     },
     {
       "left": null,
       "right": {
-        "col": 2,
         "end": 4574,
-        "lineno": 127,
         "start": 4470,
-        "value": "Directory"
       }
     }
   ],

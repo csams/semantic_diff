@@ -27,8 +27,8 @@ def make_parser(section_meaning, directive_meaning):
     Attr = AttrStart >> PosMarker(Num | QuotedString | OpAttr | BareAttr) << AttrEnd
     Attrs = Many(Attr)
 
-    StartTag = (WS + LT) >> (StartName + Attrs) << (GT + WS)
-    EndTag = (WS + LT + FS) >> PosMarker(EndName) << (GT + WS)
+    StartTag = WS >> PosMarker(LT >> (StartName + Attrs) << GT) << WS
+    EndTag = WS >> PosMarker(LT >> FS >> EndName << GT) << WS
 
     Directive = WS >> (Lift(directive_meaning) * PosMarker(Name) * Attrs) << WS  # <--- interpret the directive
     Stanza = Directive | Section | Comment | Many(WSChar | EOL, lower=1).map(lambda x: None)

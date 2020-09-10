@@ -6,7 +6,7 @@ from semdiff.grammars.httpd import make_parser
 
 
 def section_meaning(tag, children, endtag):
-    name, attrs = tag
+    name, attrs = tag.value
     attrs = [a.value for a in attrs]
     return Section(name=name.value, attrs=attrs, children=children.value, lineno=name.lineno)
 

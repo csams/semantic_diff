@@ -7,7 +7,8 @@ from semdiff.grammars.httpd import make_parser
 
 
 def _section_meaning(tag, children, endtag):
-    name, attrs = tag
+    name, attrs = tag.value
+    name.start = tag.start
     name.end = endtag.end
     attrs = tuple(Value(v) for v in attrs)
     return Node(Name(name), attrs=attrs, children=children.value)

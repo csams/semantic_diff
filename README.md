@@ -69,3 +69,24 @@ Create and activate a python 3 virtual env and then `pip install -r requirements
   "type": "structural"
 }
 ```
+
+```
+└> python -m semdiff.cli -t httpd data/left_httpd.conf data/right_httpd.conf 
+<<<<<<<<<<
+<Directory "/var/www">
+    AllowOverride None
+    # Allow open access:
+    Require all granted
+</Directory>
+==========
+>>>>>>>>>>
+
+<<<<<<<<<<
+==========
+<Directory "/var/ww">
+    AllowOverride None
+    # Allow open access:
+    Require all granted
+</Directory>
+>>>>>>>>>>
+```
